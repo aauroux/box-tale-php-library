@@ -1,24 +1,20 @@
 <?php
-define('EMC_MODE', 'test'); // change to 'prod' to test production server (this WILL make an order if you test makeOrder function !)
+define('EMC_MODE', getenv('EMC_MODE', 'test')); // change to 'prod' to test production server (this WILL make an order if you test makeOrder function !)
 
-if (EMC_MODE == 'prod') {
-    define('EMC_USER', '');
-    define('EMC_PASS', '');
-    define('EMC_KEY', '');
-} else {
-    define('EMC_USER', '');
-    define('EMC_PASS', '');
-    define('EMC_KEY', '');
+define('EMC_USER', getenv('EMC_USER'));
+define('EMC_PASS', getenv('EMC_PASS'));
+define('EMC_KEY', getenv('EMC_KEY'));
+
+if ( isset($_SERVER['REQUEST_URI']) )
+{
+	$uriExploded = explode("/", $_SERVER['REQUEST_URI']);
+	if (in_array("samples", $uriExploded) ||  in_array("test", $uriExploded)) {
+	    define("EMC_PARENT_DIR", "../");
+	} else {
+	    define("EMC_PARENT_DIR", "");
+	}
 }
-
-
-
-$uriExploded = explode("/", $_SERVER['REQUEST_URI']);
-if (in_array("samples", $uriExploded) ||  in_array("test", $uriExploded)) {
-    define("EMC_PARENT_DIR", "../");
-} else {
-    define("EMC_PARENT_DIR", "");
-}
+else define("EMC_PARENT_DIR", "");
 
 
 /**
