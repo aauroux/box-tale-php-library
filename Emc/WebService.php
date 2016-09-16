@@ -208,7 +208,7 @@ class WebService
 		$this->param = array();
 
 		/* set upload directory default value */
-		$this->setUploadDir($_SERVER['DOCUMENT_ROOT']);
+		$this->setUploadDir(config('emc.UPLOAD_DIR'));
 	}
 
 	/**
